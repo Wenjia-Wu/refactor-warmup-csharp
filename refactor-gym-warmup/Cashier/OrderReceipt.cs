@@ -27,21 +27,21 @@ namespace refactor_gym_warmup_2020.cashier
 
             // print date, bill no, customer name
 //        output.Append("Date - " + order.getDate();
-            printReceipt.Append(order.GetCustomerName());
-            printReceipt.Append(order.GetCustomerAddress());
+            printReceipt.Append(order.CustomerName);
+            printReceipt.Append(order.CustomerAddress);
 //        output.Append(order.getCustomerLoyaltyNumber());
 
             // prints lineItems
             double totSalesTx = 0d;
             double totalPrice = 0d;
 
-            foreach (LineItem lineItem in order.GetLineItems())
+            foreach (LineItem lineItem in order.LineItemList)
             {
-                printReceipt.Append(lineItem.GetDescription());
+                printReceipt.Append(lineItem.Description);
                 printReceipt.Append('\t');
-                printReceipt.Append(lineItem.GetPrice());
+                printReceipt.Append(lineItem.Price);
                 printReceipt.Append('\t');
-                printReceipt.Append(lineItem.GetQuantity());
+                printReceipt.Append(lineItem.Quantity);
                 printReceipt.Append('\t');
                 printReceipt.Append(lineItem.TotalPrice());
                 printReceipt.Append('\n');
