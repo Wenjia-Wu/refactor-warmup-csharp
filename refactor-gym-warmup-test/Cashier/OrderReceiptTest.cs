@@ -13,7 +13,7 @@ namespace refactor_gym_warmup_test.cashier
             Order order = new Order("Mr X", "Chicago, 60601", new List<LineItem>());
             OrderReceipt receipt = new OrderReceipt(order);
 
-            String output = receipt.CaculatePrintReceipt();
+            String output = receipt.PrintReceipt();
 
             Assert.Contains("Mr X", output);
             Assert.Contains("Chicago, 60601", output);
@@ -30,7 +30,7 @@ namespace refactor_gym_warmup_test.cashier
             };
             OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 
-            String output = receipt.CaculatePrintReceipt();
+            String output = receipt.PrintReceipt();
 
             Assert.Contains("milk\t10\t2\t20\n", output);
             Assert.Contains("biscuits\t5\t5\t25\n", output);

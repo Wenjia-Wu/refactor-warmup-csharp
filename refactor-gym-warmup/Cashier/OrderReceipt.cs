@@ -18,15 +18,26 @@ namespace refactor_gym_warmup_2020.cashier
             this.order = order;
         }
         
-        public string CaculatePrintReceipt()
+        public string PrintReceipt()
         {
             StringBuilder printReceipt = new StringBuilder();
 
-            printReceipt.Append("======Printing Orders======\n");
+            PrintHeads(printReceipt);
 
+            PrintLineItems(printReceipt);
+
+            return printReceipt.ToString();
+        }
+
+        private void PrintHeads(StringBuilder printReceipt)
+        {
+            printReceipt.Append("======Printing Orders======\n");
             printReceipt.Append(order.CustomerName);
             printReceipt.Append(order.CustomerAddress);
-
+        }
+        
+        private void PrintLineItems(StringBuilder printReceipt)
+        {
             double totSalesTx = 0d;
             double totalPrice = 0d;
 
@@ -50,7 +61,6 @@ namespace refactor_gym_warmup_2020.cashier
             printReceipt.Append("Sales Tax").Append('\t').Append(totSalesTx);
 
             printReceipt.Append("Total Amount").Append('\t').Append(totalPrice);
-            return printReceipt.ToString();
         }
     }
 }
