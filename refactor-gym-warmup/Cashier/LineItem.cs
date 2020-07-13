@@ -2,20 +2,20 @@ namespace refactor_gym_warmup_2020.cashier
 {
     public class LineItem
     {
-        private string desc;
+        private string description;
         private double price;
-        private int qty;
+        private int quantity;
 
-        public LineItem(string desc, double price, int qty)
+        public LineItem(string description, double price, int quantity)
         {
-            this.desc = desc;
+            this.description = description;
             this.price = price;
-            this.qty = qty;
+            this.quantity = quantity;
         }
 
         public string GetDescription()
         {
-            return desc;
+            return description;
         }
 
         public double GetPrice()
@@ -25,12 +25,12 @@ namespace refactor_gym_warmup_2020.cashier
 
         public int GetQuantity()
         {
-            return qty;
+            return quantity;
         }
 
-        public double TotalAmount()
+        public double TotalPrice()
         {
-            return price * qty;
+            return price * quantity;
         }
     }
 }
