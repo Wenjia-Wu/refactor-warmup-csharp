@@ -22,16 +22,11 @@ namespace refactor_gym_warmup_2020.cashier
         {
             StringBuilder printReceipt = new StringBuilder();
 
-            // print headers
             printReceipt.Append("======Printing Orders======\n");
 
-            // print date, bill no, customer name
-//        output.Append("Date - " + order.getDate();
             printReceipt.Append(order.CustomerName);
             printReceipt.Append(order.CustomerAddress);
-//        output.Append(order.getCustomerLoyaltyNumber());
 
-            // prints lineItems
             double totSalesTx = 0d;
             double totalPrice = 0d;
 
@@ -46,18 +41,14 @@ namespace refactor_gym_warmup_2020.cashier
                 printReceipt.Append(lineItem.TotalPrice());
                 printReceipt.Append('\n');
 
-                // calculate sales tax @ rate of 10%
                 double salesTax = lineItem.TotalPrice() * .10;
                 totSalesTx += salesTax;
 
-                // calculate total amount of lineItem = price * quantity + 10 % sales tax
                 totalPrice += lineItem.TotalPrice() + salesTax;
             }
 
-            // prints the state tax
             printReceipt.Append("Sales Tax").Append('\t').Append(totSalesTx);
 
-            // print total amount
             printReceipt.Append("Total Amount").Append('\t').Append(totalPrice);
             return printReceipt.ToString();
         }
