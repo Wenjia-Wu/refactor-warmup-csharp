@@ -51,10 +51,23 @@ namespace refactor_gym_warmup_2020.cashier
                 totalPrice += lineItem.TotalPrice() + salesTax;
             });
 
+            totalPrice = PrintTotalInfo(printReceipt, totSalesTx, totalPrice);
+        }
+
+        private double PrintTotalInfo(StringBuilder printReceipt, double totSalesTx, double totalPrice)
+        {
             printReceipt.Append("-----------------------\n");
 
             printReceipt.Append("税额:").Append('\t').Append(totSalesTx).Append('\n');
-            
+
+            totalPrice = CaculateDiscount(printReceipt, totalPrice);
+
+            printReceipt.Append("总价:").Append('\t').Append(totalPrice);
+            return totalPrice;
+        }
+
+        private double CaculateDiscount(StringBuilder printReceipt, double totalPrice)
+        {
             if (order.Date.DayOfWeek == DayOfWeek.Wednesday)
             {
                 double discount = totalPrice * .02;
@@ -62,7 +75,7 @@ namespace refactor_gym_warmup_2020.cashier
                 totalPrice -= discount;
             }
 
-            printReceipt.Append("总价:").Append('\t').Append(totalPrice);
+            return totalPrice;
         }
     }
 }
