@@ -31,9 +31,12 @@ namespace refactor_gym_warmup_2020.cashier
 
         private void PrintHeads(StringBuilder printReceipt)
         {
-            printReceipt.Append("======Printing Orders======\n");
-            printReceipt.Append(order.CustomerName);
-            printReceipt.Append(order.CustomerAddress);
+            string[] dayOfWeek = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+            printReceipt.Append("=====老王超市，值得信赖======\n\n");
+            printReceipt.Append(order.Date.ToString("yyyy年M月d日"))
+                .Append("，")
+                .Append(dayOfWeek[int.Parse(order.Date.DayOfWeek.ToString("D"))])
+                .Append("\n\n");
         }
         
         private void PrintLineItems(StringBuilder printReceipt)
