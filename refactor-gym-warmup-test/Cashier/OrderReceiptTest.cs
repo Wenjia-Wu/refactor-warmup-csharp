@@ -32,11 +32,12 @@ namespace refactor_gym_warmup_test.cashier
 
             String output = receipt.PrintReceipt();
 
-            Assert.Contains("milk\t10\t2\t20\n", output);
-            Assert.Contains("biscuits\t5\t5\t25\n", output);
-            Assert.Contains("chocolate\t20\t1\t20\n", output);
-            Assert.Contains("Sales Tax\t6.5", output);
-            Assert.Contains("Total Amount\t71.5", output);
+            Assert.Contains("milk,10*2,20\n", output);
+            Assert.Contains("biscuits,5*5,25\n", output);
+            Assert.Contains("chocolate,20*1,20\n", output);
+            Assert.Contains("-----------------------\n", output);
+            Assert.Contains("税额:\t6.5\n", output);
+            Assert.Contains("总价:\t71.5", output);
         }
     }
 }
