@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace refactor_gym_warmup_2020.cashier
@@ -51,8 +52,15 @@ namespace refactor_gym_warmup_2020.cashier
             });
 
             printReceipt.Append("-----------------------\n");
-            
+
             printReceipt.Append("税额:").Append('\t').Append(totSalesTx).Append('\n');
+            
+            if (order.Date.DayOfWeek == DayOfWeek.Wednesday)
+            {
+                double discount = totalPrice * .02;
+                printReceipt.Append("折扣:").Append('\t').Append(discount).Append('\n');
+                totalPrice -= discount;
+            }
 
             printReceipt.Append("总价:").Append('\t').Append(totalPrice);
         }

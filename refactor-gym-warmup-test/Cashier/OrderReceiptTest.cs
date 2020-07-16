@@ -28,7 +28,7 @@ namespace refactor_gym_warmup_test.cashier
                 new LineItem("biscuits", 5.0, 5),
                 new LineItem("chocolate", 20.0, 1),
             };
-            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, DateTime.UtcNow.Date));
+            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-16")));
 
             String output = receipt.PrintReceipt();
 
@@ -38,6 +38,23 @@ namespace refactor_gym_warmup_test.cashier
             Assert.Contains("-----------------------\n", output);
             Assert.Contains("税额:\t6.5\n", output);
             Assert.Contains("总价:\t71.5", output);
+        }
+        
+        [Fact]
+        public void ShouldDiscountAndPrintDiscountInfoWhenWednesday()
+        {
+            List<LineItem> lineItems = new List<LineItem>()
+            {
+                new LineItem("milk", 10.0, 2),
+                new LineItem("biscuits", 5.0, 5),
+                new LineItem("chocolate", 20.0, 1),
+            };
+            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-15")));
+
+            String output = receipt.PrintReceipt();
+
+            Assert.Contains("折扣:\t1.43", output);
+            Assert.Contains("总价:\t70.07", output);
         }
     }
 }
