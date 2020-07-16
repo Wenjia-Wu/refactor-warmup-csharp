@@ -25,8 +25,8 @@ namespace refactor_gym_warmup_2020.cashier
         private void PrintHeads(StringBuilder printReceipt)
         {
             string[] dayOfWeek = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
-            printReceipt.Append("=====老王超市，值得信赖======\n\n");
-            printReceipt.Append(order.Date.ToString("yyyy年M月d日"))
+            printReceipt.Append("=====老王超市，值得信赖======\n\n")
+                .Append(order.Date.ToString("yyyy年M月d日"))
                 .Append("，")
                 .Append(dayOfWeek[int.Parse(order.Date.DayOfWeek.ToString("D"))])
                 .Append("\n\n");
@@ -36,25 +36,20 @@ namespace refactor_gym_warmup_2020.cashier
         {
             double totSalesTx = 0d;
             double totalPrice = 0d;
-
-            foreach (LineItem lineItem in order.LineItemList)
+            
+            order.LineItemList.ForEach(lineItem =>
             {
-                printReceipt.Append(lineItem.Description);
-                printReceipt.Append(',');
-                printReceipt.Append(lineItem.Price);
-                printReceipt.Append('*');
-                printReceipt.Append(lineItem.Quantity);
-                printReceipt.Append(',');
-                printReceipt.Append(lineItem.TotalPrice());
-                printReceipt.Append('\n');
+                printReceipt.Append(lineItem.Description).Append(',');
+                printReceipt.Append(lineItem.Price).Append('*');
+                printReceipt.Append(lineItem.Quantity).Append(',');
+                printReceipt.Append(lineItem.TotalPrice()).Append('\n');
 
                 double salesTax = lineItem.TotalPrice() * .10;
                 totSalesTx += salesTax;
 
                 totalPrice += lineItem.TotalPrice() + salesTax;
-            }
+            });
 
-            
             printReceipt.Append("-----------------------\n");
             
             printReceipt.Append("税额:").Append('\t').Append(totSalesTx).Append('\n');
