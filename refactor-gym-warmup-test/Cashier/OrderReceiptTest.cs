@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using refactor_gym_warmup_2020.cashier;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace refactor_gym_warmup_test.cashier
         public void ShouldPrintCustomerInformationOnOrder()
         {
             Order order = new Order(new List<LineItem>(), Convert.ToDateTime("2020-7-16"));
-            OrderReceipt receipt = new OrderReceipt(order);
+            OrderReceipt receipt = new OrderReceipt(order, new StringBuilder());
 
             String output = receipt.PrintReceipt();
             
@@ -28,7 +29,7 @@ namespace refactor_gym_warmup_test.cashier
                 new LineItem("biscuits", 5.0, 5),
                 new LineItem("chocolate", 20.0, 1),
             };
-            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-16")));
+            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-16")), new StringBuilder());
 
             String output = receipt.PrintReceipt();
 
@@ -49,7 +50,7 @@ namespace refactor_gym_warmup_test.cashier
                 new LineItem("biscuits", 5.0, 5),
                 new LineItem("chocolate", 20.0, 1),
             };
-            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-15")));
+            OrderReceipt receipt = new OrderReceipt(new Order(lineItems, Convert.ToDateTime("2020-7-15")), new StringBuilder());
 
             String output = receipt.PrintReceipt();
 

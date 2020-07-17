@@ -6,24 +6,26 @@ namespace refactor_gym_warmup_2020.cashier
     public class OrderReceipt
     {
         private Order order;
+        private StringBuilder printReceipt;
 
-        public OrderReceipt(Order order)
+        public OrderReceipt(Order order, StringBuilder printReceipt)
         {
             this.order = order;
+            this.printReceipt = printReceipt;
         }
         
         public string PrintReceipt()
         {
-            StringBuilder printReceipt = new StringBuilder();
+            PrintHeads();
 
-            PrintHeads(printReceipt);
+            PrintLineItems();
 
-            PrintLineItems(printReceipt);
+            PrintTotalInfo();
 
             return printReceipt.ToString();
         }
 
-        private void PrintHeads(StringBuilder printReceipt)
+        private void PrintHeads()
         {
             string[] dayOfWeek = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
             printReceipt.Append("=====老王超市，值得信赖======\n\n")
@@ -33,11 +35,8 @@ namespace refactor_gym_warmup_2020.cashier
                 .Append("\n\n");
         }
         
-        private void PrintLineItems(StringBuilder printReceipt)
+        private void PrintLineItems()
         {
-            double totSalesTx = 0d;
-            double totalPrice = 0d;
-            
             order.LineItemList.ForEach(lineItem =>
             {
                 printReceipt.Append(lineItem.Description).Append(',');
@@ -45,37 +44,31 @@ namespace refactor_gym_warmup_2020.cashier
                 printReceipt.Append(lineItem.Quantity).Append(',');
                 printReceipt.Append(lineItem.TotalPrice()).Append('\n');
 
-                double salesTax = lineItem.TotalPrice() * .10;
-                totSalesTx += salesTax;
+                order.TotalSalesTax += lineItem.TotalPrice() * .10;
 
-                totalPrice += lineItem.TotalPrice() + salesTax;
+                order.TotalPrice += lineItem.TotalPrice() * 1.10;
             });
-
-            totalPrice = PrintTotalInfo(printReceipt, totSalesTx, totalPrice);
         }
 
-        private double PrintTotalInfo(StringBuilder printReceipt, double totSalesTx, double totalPrice)
+        private void PrintTotalInfo()
         {
             printReceipt.Append("-----------------------\n");
 
-            printReceipt.Append("税额:").Append('\t').Append(totSalesTx).Append('\n');
+            printReceipt.Append("税额:").Append('\t').Append(order.TotalSalesTax).Append('\n');
 
-            totalPrice = CaculateDiscount(printReceipt, totalPrice);
+            CalculateDiscount();
 
-            printReceipt.Append("总价:").Append('\t').Append(totalPrice);
-            return totalPrice;
+            printReceipt.Append("总价:").Append('\t').Append(order.TotalPrice);
         }
 
-        private double CaculateDiscount(StringBuilder printReceipt, double totalPrice)
+        private void CalculateDiscount()
         {
             if (order.Date.DayOfWeek == DayOfWeek.Wednesday)
             {
-                double discount = totalPrice * .02;
-                printReceipt.Append("折扣:").Append('\t').Append(discount).Append('\n');
-                totalPrice -= discount;
+                order.Discount = order.TotalPrice * .02;
+                printReceipt.Append("折扣:").Append('\t').Append(order.Discount).Append('\n');
+                order.TotalPrice -= order.Discount;
             }
-
-            return totalPrice;
         }
     }
 }
